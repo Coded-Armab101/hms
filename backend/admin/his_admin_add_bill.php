@@ -81,6 +81,8 @@ if(isset($_POST['add_bill']))
 <!DOCTYPE html>
 <html lang="en">
     <?php include('assets/inc/head.php');?>
+    <!-- Add Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <body>
         <div id="wrapper">
             <?php include("assets/inc/nav.php");?>
@@ -129,32 +131,36 @@ if(isset($_POST['add_bill']))
                                         <form method="post">
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
-                                                    <label for="inputEmail4" class="col-form-label">Patient</label>
-                                                    <select name="pat_id" class="form-control" required="required">
+                                                    <label for="pat_id" class="col-form-label">Patient</label>
+                                                    <select name="pat_id" id="pat_id" class="form-control" required="required">
                                                         <option value="">Select Patient</option>
                                                         <?php
-                                                            $ret="SELECT pat_id, pat_fname, pat_lname, pat_number FROM his_patients ORDER BY pat_fname";
-                                                            $stmt= $mysqli->prepare($ret) ;
-                                                            $stmt->execute() ;
-                                                            $res=$stmt->get_result();
-                                                            while($row=$res->fetch_object())
+                                                            $ret = "SELECT pat_id, pat_fname, pat_lname, pat_number, pat_phone, pat_email 
+                                                                    FROM his_patients 
+                                                                    ORDER BY pat_fname";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute();
+                                                            $res = $stmt->get_result();
+                                                            while($row = $res->fetch_object())
                                                             {
                                                         ?>
-                                                        <option value="<?php echo $row->pat_id;?>"><?php echo $row->pat_fname;?> <?php echo $row->pat_lname;?> (<?php echo $row->pat_number;?>)</option>
+                                                        <option value="<?php echo $row->pat_id;?>">
+                                                            <?php echo $row->pat_fname . ' ' . $row->pat_lname . ' (' . $row->pat_number . ')'; ?>
+                                                        </option>
                                                         <?php }?>
                                                         <?php $stmt->close(); ?>
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label for="inputPassword4" class="col-form-label">Bill Type</label>
+                                                    <label for="bill_type" class="col-form-label">Bill Type</label>
                                                     <select required="required" name="bill_type" class="form-control">
                                                         <option value="">Select Bill Type</option>
                                                         <?php
-                                                            $ret="SELECT type_name FROM his_bill_types ORDER BY type_name"; 
-                                                            $stmt= $mysqli->prepare($ret) ;
-                                                            $stmt->execute() ;
-                                                            $res=$stmt->get_result();
-                                                            while($row=$res->fetch_object())
+                                                            $ret = "SELECT type_name FROM his_bill_types ORDER BY type_name"; 
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute();
+                                                            $res = $stmt->get_result();
+                                                            while($row = $res->fetch_object())
                                                             {
                                                         ?>
                                                         <option value="<?php echo $row->type_name;?>"><?php echo $row->type_name;?></option>
@@ -165,11 +171,11 @@ if(isset($_POST['add_bill']))
                                             </div>
                                             <div class="form-row">
                                                  <div class="form-group col-md-6">
-                                                    <label for="inputEmail4" class="col-form-label">Bill Details</label>
+                                                    <label for="bill_details" class="col-form-label">Bill Details</label>
                                                     <input type="text" required="required" name="bill_details" class="form-control" placeholder="e.g. Malaria Treatment">
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label for="inputPassword4" class="col-form-label">Amount (₦)</label>
+                                                    <label for="bill_amount" class="col-form-label">Amount (₦)</label>
                                                     <input type="number" step="0.01" required="required" name="bill_amount" class="form-control" min="0.01">
                                                 </div>
                                             </div>
@@ -188,9 +194,22 @@ if(isset($_POST['add_bill']))
         </div>
         <div class="rightbar-overlay"></div>
         <script src="assets/js/vendor.min.js"></script>
+        <!-- Add Select2 JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
         <script src="assets/js/app.min.js"></script>
         <script src="assets/libs/ladda/spin.js"></script>
         <script src="assets/libs/ladda/ladda.js"></script>
         <script src="assets/js/pages/loading-btn.init.js"></script>
+        
+        <script>
+            $(document).ready(function() {
+                // Initialize Select2 for patient search
+                $('#pat_id').select2({
+                    placeholder: 'Search for a patient...',
+                    allowClear: true,
+                    width: '100%'
+                });
+            });
+        </script>
     </body>
 </html>

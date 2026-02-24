@@ -49,147 +49,129 @@
                         
 
                         <div class="row">
-                            <!--Start OutPatients-->
-                            <div class="col-md-6 col-xl-4">
-                                <div class="widget-rounded-circle card-box">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="avatar-lg rounded-circle bg-soft-danger border-danger border">
-                                                <i class="fab fa-accessible-icon  font-22 avatar-title text-danger"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="text-right">
-                                                <?php
-                                                    //code for summing up number of out patients 
-                                                    $result ="SELECT count(*) FROM his_patients  ";
-                                                    $stmt = $mysqli->prepare($result);
-                                                    $stmt->execute();
-                                                    $stmt->bind_result($patient);
-                                                    $stmt->fetch();
-                                                    $stmt->close();
-                                                ?>
-                                                <h3 class="text-dark mt-1"><span data-plugin="counterup"><?php echo $patient;?></span></h3>
-                                                <p class="text-muted mb-1 text-truncate">Patients</p>
-                                            </div>
-                                        </div>
-                                    </div> <!-- end row-->
-                                </div> <!-- end widget-rounded-circle-->
-                            </div> <!-- end col-->
-                            <!--End Out Patients-->
-                            <!--Start InPatients-->
-                            <div class="col-md-6 col-xl-4">
-                                <div class="widget-rounded-circle card-box">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="avatar-lg rounded-circle bg-soft-danger border-danger border">
-                                                <i class="mdi mdi-flask font-22 avatar-title text-danger"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="text-right">
-                                                <?php
-                                                    /* 
-                                                     * code for summing up number of assets,
-                                                     */ 
-                                                    $result ="SELECT count(*) FROM his_equipments ";
-                                                    $stmt = $mysqli->prepare($result);
-                                                    $stmt->execute();
-                                                    $stmt->bind_result($assets);
-                                                    $stmt->fetch();
-                                                    $stmt->close();
-                                                ?>
-                                                <h3 class="text-dark mt-1"><span data-plugin="counterup"><?php echo $assets;?></span></h3>
-                                                <p class="text-muted mb-1 text-truncate">Corporation Assets</p>
-                                            </div>
-                                        </div>
-                                    </div> <!-- end row-->
-                                </div> <!-- end widget-rounded-circle-->
-                            </div>
-                            <!--End InPatients-->
+    <div class="col-md-6 col-xl-4 lg:py-0 py-2">
+        <div class="border-none shadow-sm bg-sky-200 rounded-lg p-3">
+            <div class="row flex items-center ">
+                <div class="col-5">
+                    <div class="avatar-lg w-90">
+                        <img src="https://crm-admin-dashboard-template.multipurposethemes.com/images/svg-icon/medical/icon-1.svg" class="img-fluid" alt="Patient Icon">
+                    </div>
+                </div>
+                <div class="col-7">
+                    <div class="text-right">
+                        <?php
+                            $result ="SELECT count(*) FROM his_patients ";
+                            $stmt = $mysqli->prepare($result);
+                            $stmt->execute();
+                            $stmt->bind_result($patient);
+                            $stmt->fetch();
+                            $stmt->close();
+                        ?>
+                        <h3 class="text-blue-600 font-weight-bold mt-1" style="color: #3b82f6; font-size: 2rem;">
+                            <span data-plugin="counterup"><?php echo $patient;?></span>
+                        </h3>
+                        <p class="text-muted mb-1 text-truncate font-weight-medium">Total Patients</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                            <!--Start Pharmaceuticals-->
-                            <div class="col-md-6 col-xl-4">
-                                <div class="widget-rounded-circle card-box">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="avatar-lg rounded-circle bg-soft-danger border-danger border">
-                                                <i class="mdi mdi-pill font-22 avatar-title text-danger"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="text-right">
-                                               ?*** <?php
-                                                    /* 
-                                                     * code for summing up number of pharmaceuticals,
-                                                     */ 
-                                                    $result ="SELECT count(*) FROM his_pharmaceuticals ";
-                                                    $stmt = $mysqli->prepare($result);
-                                                    $stmt->execute();
-                                                    $stmt->bind_result($phar);
-                                                    $stmt->fetch();
-                                                    $stmt->close();
-                                                ?>
-                                                <h3 class="text-dark mt-1"><span data-plugin="counterup"><?php echo $phar;?></span></h3>
-                                                <p class="text-muted mb-1 text-truncate">Pharmaceuticals</p>
-                                            </div>
-                                        </div>
-                                    </div> <!-- end row-->
-                                </div> <!-- end widget-rounded-circle-->
-                            </div> <!-- end col-->
-                            <!--End Pharmaceuticals-->
-                        
+    <div class="col-md-6 col-xl-4 lg:py-0 py-2">
+        <div class="widget-rounded-circle bg-purple-100 border-none shadow-sm rounded-lg p-3">
+            <div class="row align-items-center">
+                <div class="col-5">
+                    <div class="avatar-lg w-90">
+                        <img src="https://crm-admin-dashboard-template.multipurposethemes.com/images/svg-icon/medical/icon-4.svg" class="img-fluid" alt="Assets Icon">
+                    </div>
+                </div>
+                <div class="col-7">
+                    <div class="text-right">
+                        <?php
+                            $result ="SELECT count(*) FROM his_equipments ";
+                            $stmt = $mysqli->prepare($result);
+                            $stmt->execute();
+                            $stmt->bind_result($assets);
+                            $stmt->fetch();
+                            $stmt->close();
+                        ?>
+                        <h3 class="font-weight-bold mt-1" style="color: #8b5cf6; font-size: 2rem;">
+                            <span data-plugin="counterup"><?php echo $assets;?></span>
+                        </h3>
+                        <p class="text-muted mb-1 text-truncate font-weight-medium">Corp. Assets</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-xl-4 lg:py-0 py-2">
+        <div class="widget-rounded-circle bg-pink-100 border-none shadow-sm rounded-lg p-3">
+            <div class="row align-items-center">
+                <div class="col-5">
+                    <div class="avatar-lg w-90">
+                        <img src="https://crm-admin-dashboard-template.multipurposethemes.com/images/svg-icon/medical/icon-2.svg" class="img-fluid" alt="Pharma Icon">
+                    </div>
+                </div>
+                <div class="col-7">
+                    <div class="text-right">
+                        <?php
+                            $result ="SELECT count(*) FROM his_pharmaceuticals ";
+                            $stmt = $mysqli->prepare($result);
+                            $stmt->execute();
+                            $stmt->bind_result($phar);
+                            $stmt->fetch();
+                            $stmt->close();
+                        ?>
+                        <h3 class="font-weight-bold mt-1" style="color: #f43f5e; font-size: 2rem;">
+                            <span data-plugin="counterup"><?php echo $phar;?></span>
+                        </h3>
+                        <p class="text-muted mb-1 text-truncate font-weight-medium">Pharmaceuticals</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            
+<div class="row">
+    <div class="col-md-6 col-xl-6 lg:py-0 py-2">
+        <a href="his_doc_account.php" class="text-decoration-none">
+            <div class="widget-rounded-circle bg-green-100 border-none shadow-sm rounded-lg p-3 transition-all hover:shadow-md" style="transition: 0.3s;">
+                <div class="row align-items-center">
+                    <div class="col-5">
+                        <div class="avatar-lg w-90">
+                            <img src="https://crm-admin-dashboard-template.multipurposethemes.com/images/svg-icon/medical/icon-10.svg" class="img-fluid" alt="Profile Icon">
                         </div>
-
-                        <div class="row">
-
-                        <!--Start Vendors -->
-                       
-                            <div class="col-md-6 col-xl-6">
-                                <a href="his_nurse_account.php">
-                                    <div class="widget-rounded-circle card-box">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="avatar-lg rounded-circle bg-soft-danger border-danger border">
-                                                    <i class="fas fa-user-tag font-22 avatar-title text-danger"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="text-right">
-                                                    <h3 class="text-dark mt-1"></span></h3>
-                                                    <p class="text-muted mb-1 text-truncate">My Profile</p>
-                                                </div>
-                                            </div>
-                                        </div>  <!--end row-->
-                                    </div>
-                                </a> <!-- end widget-rounded-circle-->
-                            </div> 
-                           <!-- end col--> 
-                            <!--End Vendors-->  
-
-                            <!--Start Corporation Assets-->
-                            <div class="col-md-6 col-xl-6">
-                                <a href="his_nurse_view_payrolls.php">
-                                    <div class="widget-rounded-circle card-box">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="avatar-lg rounded-circle bg-soft-danger border-danger border">
-                                                    <i class="mdi mdi-flask font-22 avatar-title text-danger"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="text-right">
-                                                    <h3 class="text-dark mt-1"></span></h3>
-                                                    <p class="text-muted mb-1 text-truncate">My Payroll</p>
-                                                </div>
-                                            </div>
-                                        </div> <!-- end row-->
-                                    </div>
-                                </a>     <!-- end widget-rounded-circle-->
-                            </div> <!-- end col-->
-                            <!--End Corporation Assets-->
+                    </div>
+                    <div class="col-7">
+                        <div class="text-right">
+                            <h3 class="font-weight-bold mt-1" style="color: #10b981; font-size: 1.8rem;">View</h3>
+                            <p class="text-muted mb-1 text-truncate font-weight-medium">My Profile</p>
                         </div>
-                        
+                    </div>
+                </div> </div>
+        </a>
+    </div> 
+    <div class="col-md-6 col-xl-6 lg:py-0 py-2">
+        <a href="his_doc_view_payrolls.php" class="text-decoration-none">
+            <div class="widget-rounded-circle bg-amber-100 border-none shadow-sm rounded-lg p-3 transition-all hover:shadow-md" style="transition: 0.3s;">
+                <div class="row align-items-center">
+                    <div class="col-5">
+                        <div class="avatar-lg w-90">
+                            <img src="https://crm-admin-dashboard-template.multipurposethemes.com/images/svg-icon/medical/icon-8.svg" class="img-fluid" alt="Payroll Icon">
+                        </div>
+                    </div>
+                    <div class="col-7">
+                        <div class="text-right">
+                            <h3 class="font-weight-bold mt-1" style="color: #f59e0b; font-size: 1.8rem;">Check</h3>
+                            <p class="text-muted mb-1 text-truncate font-weight-medium">My Payroll</p>
+                        </div>
+                    </div>
+                </div> </div>
+        </a>
+    </div> 
+    </div>
 
                         
                         <!--Recently Employed Employees-->
@@ -244,7 +226,7 @@
                                                         <?php echo $row->pat_age;?> Years
                                                     </td>
                                                     <td>
-                                                        <a href="his_nurse_view_single_patient.php?pat_id=<?php echo $row->pat_id;?>&&pat_number=<?php echo $row->pat_number;?>&&pat_name=<?php echo $row->pat_fname;?>_<?php echo $row->pat_lname;?>" class="btn btn-xs btn-success"><i class="mdi mdi-eye"></i> View</a>
+                                                        <a href="his_doc_view_single_patient.php?pat_id=<?php echo $row->pat_id;?>&&pat_number=<?php echo $row->pat_number;?>&&pat_name=<?php echo $row->pat_fname;?>_<?php echo $row->pat_lname;?>" class="btn btn-xs btn-success"><i class="mdi mdi-eye"></i> View</a>
                                                     </td>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
                                                 </tr>
                                             </tbody>

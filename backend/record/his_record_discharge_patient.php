@@ -129,7 +129,7 @@
                                                     <td><?php echo $row->pat_type;?></td>
                                                     
                                                     <td>
-                                                        <a href="his_admin_discharge_single_patient.php?pat_id=<?php echo $row->pat_id;?>" class="badge badge-primary"><i class="mdi mdi-check-box-outline "></i> Discharge</a>
+                                                        <a href="his_record_discharge_single_patient.php?pat_id=<?php echo $row->pat_id;?>" class="badge badge-primary"><i class="mdi mdi-check-box-outline "></i> Discharge</a>
                                                     </td>
                                                 </tr>
                                                 </tbody>

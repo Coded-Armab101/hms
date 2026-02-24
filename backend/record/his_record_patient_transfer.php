@@ -129,7 +129,7 @@
                                                     <td><?php echo $row->pat_type;?></td>
                                                     
                                                     <td>
-                                                        <a href="his_admin_transfer_single_patient.php?pat_number=<?php echo $row->pat_number;?>" class="badge badge-primary"><i class="mdi mdi-check-box-outline "></i> Transfer Patient</a>
+                                                        <a href="his_record_transfer_single_patient.php?pat_number=<?php echo $row->pat_number;?>" class="badge badge-primary"><i class="mdi mdi-check-box-outline "></i> Transfer Patient</a>
                                                     </td>
                                                 </tr>
                                                 </tbody>

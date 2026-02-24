@@ -105,7 +105,7 @@
                                                     <td><?php echo $row->doc_fname;?> <?php echo $row->doc_lname;?></td>
                                                     <td><?php echo $row->doc_number;?></td>
                                                     <td><?php echo $row->doc_email;?></td>                                                    
-                                                    <td><a href="his_admin_add_single_employee_vitals.php?doc_number=<?php echo $row->doc_number;?>" class="badge badge-success"><i class="fas fa-edit"></i> Capture Vitals</a></td>
+                                                    <td><a href="his_record_add_single_employee_vitals.php?doc_number=<?php echo $row->doc_number;?>" class="badge badge-success"><i class="fas fa-edit"></i> Capture Vitals</a></td>
                                                 </tr>
                                                 </tbody>
                                             <?php  $cnt = $cnt +1 ; }?>

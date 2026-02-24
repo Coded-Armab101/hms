@@ -68,7 +68,7 @@
                                                     $stmt->close();
                                                 ?>
                                                 <h3 class="text-dark mt-1"><span data-plugin="counterup"><?php echo $outpatient;?></span></h3>
-                                                <p class="text-muted mb-1 text-truncate"><a href = "his_admin_add_employee_doc.php">Add Doctor</a></p>
+                                                <p class="text-muted mb-1 text-truncate"><a href = "his_record_add_employee_doc.php">Add Doctor</a></p>
                                             </div>
                                         </div>
                                     </div> <!-- end row-->
@@ -98,7 +98,7 @@
                                                     $stmt->close();
                                                 ?>
                                                 <h3 class="text-dark mt-1"><span data-plugin="counterup"><?php echo $inpatient;?></span></h3>
-                                                <p class="text-muted mb-1 text-truncate"><a href = "his_admin_add_employee_ns.php">Add Nurse</a></p>
+                                                <p class="text-muted mb-1 text-truncate"><a href = "his_record_add_employee_ns.php">Add Nurse</a></p>
                                             </div>
                                         </div>
                                     </div> <!-- end row-->
@@ -127,7 +127,7 @@
                                                     $stmt->close();
                                                 ?>
                                                 <h3 class="text-dark mt-1"><span data-plugin="counterup"><?php echo $doc;?></span></h3>
-                                                <p class="text-muted mb-1 text-truncate"><a href = "his_admin_add_employee_lab.php">Add Lab Scist.</a></p>
+                                                <p class="text-muted mb-1 text-truncate"><a href = "his_record_add_employee_lab.php">Add Lab Scist.</a></p>
                                             </div>
                                         </div>
                                     </div> <!-- end row-->
@@ -162,7 +162,7 @@
                                                     $stmt->close();
                                                 ?>
                                                 <h3 class="text-dark mt-1"><span data-plugin="counterup"><?php echo $vendor;?></span></h3>
-                                                <p class="text-muted mb-1 text-truncate"><a href = "his_admin_add_employee_admin.php">Add Admin</a></p>
+                                                <p class="text-muted mb-1 text-truncate"><a href = "his_record_add_employee_admin.php">Add Admin</a></p>
                                             </div>
                                         </div>
                                     </div> <!-- end row-->
@@ -193,7 +193,7 @@
                                                     $stmt->close();
                                                 ?>
                                                 <h3 class="text-dark mt-1"><span data-plugin="counterup"><?php echo $assets;?></span></h3>
-                                                <p class="text-muted mb-1 text-truncate"><a href = "his_admin_add_employee_pharm.php">Add Pharmacist</a></p>
+                                                <p class="text-muted mb-1 text-truncate"><a href = "his_record_add_employee_pharm.php">Add Pharmacist</a></p>
                                             </div>
                                         </div>
                                     </div> <!-- end row-->
@@ -224,7 +224,7 @@
                                                     $stmt->close();
                                                 ?>
                                                 <h3 class="text-dark mt-1"><span data-plugin="counterup"><?php echo $phar;?></span></h3>
-                                                <p class="text-muted mb-1 text-truncate"><a href = "his_admin_add_employee_pharm.php">Add Pharmacist</a></p>
+                                                <p class="text-muted mb-1 text-truncate"><a href = "his_record_add_employee_pharm.php">Add Pharmacist</a></p>
                                             </div>
                                         </div>
                                     </div> <!-- end row-->
@@ -281,7 +281,7 @@
                                                         <?php echo $row->doc_dept;?>
                                                     </td>
                                                     <td>
-                                                        <a href="his_admin_view_single_employee.php?doc_id=<?php echo $row->doc_id;?>&&doc_number=<?php echo $row->doc_number;?>" class="btn btn-xs btn-primary"><i class="mdi mdi-eye"></i> View</a>
+                                                        <a href="his_record_view_single_employee.php?doc_id=<?php echo $row->doc_id;?>&&doc_number=<?php echo $row->doc_number;?>" class="btn btn-xs btn-primary"><i class="mdi mdi-eye"></i> View</a>
                                                     </td>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
                                                 </tr>
                                             </tbody>

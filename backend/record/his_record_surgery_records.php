@@ -133,7 +133,7 @@
 
                                                     
                                                     <td>
-                                                        <a href="his_admin_view_single_patient_surgery.php?s_number=<?php echo $row->s_number;?>" class="badge badge-success"><i class="mdi mdi-eye"></i> View</a>
+                                                        <a href="his_record_view_single_patient_surgery.php?s_number=<?php echo $row->s_number;?>" class="badge badge-success"><i class="mdi mdi-eye"></i> View</a>
                                                         <!--<a href="his_admin_manage_theatre_patient.php?delete_s_number=<?php echo $row->s_number?>" class="badge badge-danger"><i class="fas fa-trash"></i> Delete Record</a>-->
                                                     </td>
                                                 </tr>

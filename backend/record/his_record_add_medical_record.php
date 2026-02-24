@@ -112,7 +112,7 @@
                                                     <td><?php echo $row->pat_age;?> Years</td>
                                                     <td><?php echo $row->pat_type;?></td>
                                                     
-                                                    <td><a href="his_admin_add_single_patient_medical_record.php?pat_number=<?php echo $row->pat_number;?>" class="badge badge-success"><i class=" fas fa-file-signature"></i> Add Medical Record</a></td>
+                                                    <td><a href="his_record_add_single_patient_medical_record.php?pat_number=<?php echo $row->pat_number;?>" class="badge badge-success"><i class=" fas fa-file-signature"></i> Add Medical Record</a></td>
                                                 </tr>
                                                 </tbody>
                                             <?php  $cnt = $cnt +1 ; }?>

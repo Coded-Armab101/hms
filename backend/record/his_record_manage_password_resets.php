@@ -116,7 +116,7 @@
 
                                                     if($row->status == 'Pending')
                                                     {
-                                                        $action = "<td><a href='his_admin_update_doc_password.php?email=$row->email&pwd=$row->pwd' class='badge badge-danger'><i class='fas fa-edit'></i>Reset Password</a></td>";
+                                                        $action = "<td><a href='his_record_update_doc_password.php?email=$row->email&pwd=$row->pwd' class='badge badge-danger'><i class='fas fa-edit'></i>Reset Password</a></td>";
                                                     }
                                                     else
                                                     {

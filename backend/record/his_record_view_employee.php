@@ -105,7 +105,7 @@
                                                     <td><?php echo $row->doc_fname;?> <?php echo $row->doc_lname;?></td>
                                                     <td><?php echo $row->doc_number;?></td>
                                                     <td><?php echo $row->doc_email;?></td>                                                    
-                                                    <td><a href="his_admin_view_single_employee.php?doc_id=<?php echo $row->doc_id;?>&&doc_number=<?php echo $row->doc_number;?>" class="badge badge-success"><i class="mdi mdi-eye"></i> View</a></td>
+                                                    <td><a href="his_record_view_single_employee.php?doc_id=<?php echo $row->doc_id;?>&&doc_number=<?php echo $row->doc_number;?>" class="badge badge-success"><i class="mdi mdi-eye"></i> View</a></td>
                                                 </tr>
                                                 </tbody>
                                             <?php  $cnt = $cnt +1 ; }?>

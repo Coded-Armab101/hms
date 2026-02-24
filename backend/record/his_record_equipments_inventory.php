@@ -109,7 +109,7 @@
                                                     <td><?php echo $row->eqp_dept;?></td>
                                                     <td><?php echo $row->eqp_qty;?></td>
                                                     <td>
-                                                        <a href="his_admin_view_single_eqp.php?eqp_code=<?php echo $row->eqp_code;?>" class="badge badge-success"><i class="far fa-eye "></i> View</a>
+                                                        <a href="his_record_view_single_eqp.php?eqp_code=<?php echo $row->eqp_code;?>" class="badge badge-success"><i class="far fa-eye "></i> View</a>
                                                     </td>
                                                 </tr>
                                                 </tbody>

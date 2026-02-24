@@ -105,7 +105,7 @@
                                                     <td>$ <?php echo $row->acc_amount;?></td>
                                                     <td><?php echo $row->acc_type;?></td>
                                                     <td>
-                                                        <a href="his_admin_view_single_account.php?acc_number=<?php echo $row->acc_number;?>" class="badge badge-success"><i class="fas fa-eye "></i> View</a>
+                                                        <a href="his_record_view_single_account.php?acc_number=<?php echo $row->acc_number;?>" class="badge badge-success"><i class="fas fa-eye "></i> View</a>
                                                     </td>
                                                 </tr>
                                                 </tbody>

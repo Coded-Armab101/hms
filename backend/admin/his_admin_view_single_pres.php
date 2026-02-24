@@ -5,11 +5,26 @@ include('assets/inc/checklogin.php');
 check_login();
 $aid = $_SESSION['ad_id'];
 
-// Get patient number from URL
-if (!isset($_GET['pat_number']) || empty($_GET['pat_number'])) {
-    die("<h3 style='color:red; text-align:center;'>Error: Missing patient number.</h3>");
+// Get patient number from URL or POST
+$pat_number = '';
+
+// Check GET parameter first
+if (isset($_GET['pat_number']) && !empty($_GET['pat_number'])) {
+    $pat_number = $_GET['pat_number'];
 }
-$pat_number = $_GET['pat_number'];
+// If not in GET, check POST
+elseif (isset($_POST['pat_number']) && !empty($_POST['pat_number'])) {
+    $pat_number = $_POST['pat_number'];
+}
+// If still not found, redirect back with error
+else {
+    $_SESSION['error'] = "Patient number is missing. Please select a patient first.";
+    header("Location: his_admin_view_presc.php");
+    exit();
+}
+
+// Sanitize the patient number
+$pat_number = trim($pat_number);
 
 // Handle update of dispensed drug via AJAX/modal
 if (isset($_POST['update_drug_modal'])) {
@@ -78,7 +93,9 @@ $result_patient = $stmt_patient->get_result();
 $patient = $result_patient->fetch_object();
 
 if (!$patient) {
-    die("<h3 style='color:red; text-align:center;'>Patient not found!</h3>");
+    $_SESSION['error'] = "Patient not found with number: " . htmlspecialchars($pat_number);
+    header("Location: his_admin_view_presc.php");
+    exit();
 }
 
 // Fetch prescription details for this patient
@@ -123,6 +140,12 @@ $res_dispensed = $stmt_dispensed->get_result();
     }
     .close:hover {
         color: #f8f9fa;
+    }
+    .toast-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
     }
 </style>
 
@@ -175,6 +198,10 @@ $res_dispensed = $stmt_dispensed->get_result();
                                         <div class="col-md-3">
                                             <strong>Contact:</strong><br>
                                             <?php echo htmlspecialchars($patient->pat_phone ?? 'N/A'); ?>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <strong>Gender:</strong><br>
+                                            <?php echo htmlspecialchars($patient->pat_sex ?? 'N/A'); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -275,7 +302,7 @@ $res_dispensed = $stmt_dispensed->get_result();
                         </div>
                     </div>
 
-                    <!-- Add New Drug Section (Optional) -->
+                    <!-- Add New Drug Section -->
                     <div class="row mt-3">
                         <div class="col-12">
                             <div class="card">
@@ -350,13 +377,26 @@ $res_dispensed = $stmt_dispensed->get_result();
         </div>
     </div>
 
-    <!-- Toast for notifications -->
-    <div class="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
+    <!-- Toast container for notifications -->
+    <div class="toast-container"></div>
 
     <script src="assets/js/vendor.min.js"></script>
     <script src="assets/js/app.min.js"></script>
     
     <script>
+    $(document).ready(function() {
+        // Check if there's a success/error message in session and display it
+        <?php if (isset($_SESSION['success'])): ?>
+        showToast('success', '<?php echo $_SESSION['success']; ?>');
+        <?php unset($_SESSION['success']); ?>
+        <?php endif; ?>
+        
+        <?php if (isset($_SESSION['error'])): ?>
+        showToast('error', '<?php echo $_SESSION['error']; ?>');
+        <?php unset($_SESSION['error']); ?>
+        <?php endif; ?>
+    });
+
     // Calculate amount and final amount
     function calculateAmount() {
         var quantity = parseFloat($('#edit_quantity').val()) || 0;
@@ -414,15 +454,15 @@ $res_dispensed = $stmt_dispensed->get_result();
                     showToast('error', response.message);
                 }
             },
-            error: function() {
-                showToast('error', 'An error occurred while updating');
+            error: function(xhr, status, error) {
+                showToast('error', 'An error occurred while updating: ' + error);
             }
         });
     });
     
     // Delete drug
     function deleteDrug(id) {
-        if (confirm('Are you sure you want to delete this record?')) {
+        if (confirm('Are you sure you want to delete this record? This action cannot be undone.')) {
             $.ajax({
                 url: window.location.href,
                 type: 'POST',
@@ -436,6 +476,7 @@ $res_dispensed = $stmt_dispensed->get_result();
                         showToast('success', response.message);
                         $('#drug-row-' + id).fadeOut(500, function() {
                             $(this).remove();
+                            // Check if table is empty
                             if ($('#drugs-table tbody tr').length === 0) {
                                 location.reload();
                             }
@@ -444,8 +485,8 @@ $res_dispensed = $stmt_dispensed->get_result();
                         showToast('error', response.message);
                     }
                 },
-                error: function() {
-                    showToast('error', 'An error occurred while deleting');
+                error: function(xhr, status, error) {
+                    showToast('error', 'An error occurred while deleting: ' + error);
                 }
             });
         }
@@ -453,8 +494,9 @@ $res_dispensed = $stmt_dispensed->get_result();
     
     // Show toast notification
     function showToast(type, message) {
-        var toastHtml = '<div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" style="min-width: 250px;">' +
-            '<div class="toast-header ' + (type === 'success' ? 'bg-success' : 'bg-danger') + ' text-white">' +
+        var bgClass = type === 'success' ? 'bg-success' : 'bg-danger';
+        var toastHtml = '<div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" style="min-width: 300px;">' +
+            '<div class="toast-header ' + bgClass + ' text-white">' +
             '<strong class="mr-auto">' + (type === 'success' ? 'Success' : 'Error') + '</strong>' +
             '<button type="button" class="ml-2 mb-1 close text-white" data-dismiss="toast" aria-label="Close">' +
             '<span aria-hidden="true">&times;</span>' +
@@ -475,6 +517,19 @@ $res_dispensed = $stmt_dispensed->get_result();
     // Recalculate on quantity or discount change
     $('#edit_quantity, #edit_discount').on('input', function() {
         calculateAmount();
+    });
+    
+    // Validate quantity doesn't exceed stock
+    $('#edit_quantity').on('change', function() {
+        var quantity = parseInt($(this).val());
+        var stockText = $('#edit_stock_qty').val();
+        var stock = parseInt(stockText.split(' ')[0]);
+        
+        if (quantity > stock) {
+            showToast('error', 'Quantity cannot exceed available stock (' + stock + ' units)');
+            $(this).val(stock);
+            calculateAmount();
+        }
     });
     </script>
 </body>

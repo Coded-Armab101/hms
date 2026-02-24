@@ -129,7 +129,7 @@
                                                     <td><?php echo $row->doc_email;?></td>
                                                     
                                                     <td>
-                                                        <a href="his_admin_transfer_single_employee.php?doc_number=<?php echo $row->doc_number;?>" class="badge badge-warning"><i class="mdi mdi-check-box-outline "></i> Transfer Employee</a>
+                                                        <a href="his_record_transfer_single_employee.php?doc_number=<?php echo $row->doc_number;?>" class="badge badge-warning"><i class="mdi mdi-check-box-outline "></i> Transfer Employee</a>
                                                     </td>
                                                 </tr>
                                                 </tbody>

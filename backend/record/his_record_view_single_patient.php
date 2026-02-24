@@ -203,7 +203,7 @@ $patient_details = $res->fetch_object();
                                         <span class="ml-2"><?php echo $patient_details->pat_date_joined; ?></span>
                                     </p>
                                     <hr>
-                                    <a href="his_admin_book_appointment.php?pat_id=<?php echo $patient_details->pat_id; ?>">
+                                    <a href="his_record_book_appointment.php?pat_id=<?php echo $patient_details->pat_id; ?>">
                                         <i class="mdi mdi-check-box-outline"></i> Book Appointment
                                     </a>
                                 </div>
@@ -213,70 +213,26 @@ $patient_details = $res->fetch_object();
                         <!-- Main Content: Tabs -->
                         <div class="col-lg-8 col-xl-8">
                             <div class="card-box">
-                                <!-- Nav Tabs -->
+                                <!-- Nav Tabs - REARRANGED ORDER: Vitals, Notes, Prescriptions, Lab -->
                                 <ul class="nav nav-pills navtab-bg nav-justified" role="tablist">
                                     <li class="nav-item">
-                                        <a id="tab-prescription" href="#prescription" class="nav-link active" data-toggle="tab" role="tab" aria-controls="prescription" aria-selected="true">Prescription</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a id="tab-vitals" href="#vitals" class="nav-link" data-toggle="tab" role="tab" aria-controls="vitals" aria-selected="false">Vitals</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a id="tab-lab-records" href="#lab_records" class="nav-link" data-toggle="tab" role="tab" aria-controls="lab_records" aria-selected="false">Lab Records</a>
+                                        <a id="tab-vitals" href="#vitals" class="nav-link active" data-toggle="tab" role="tab" aria-controls="vitals" aria-selected="true">Vitals</a>
                                     </li>
                                     <li class="nav-item">
                                         <a id="tab-doctor-note" href="#doctor_note" class="nav-link" data-toggle="tab" role="tab" aria-controls="doctor_note" aria-selected="false">Doctor's Note</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a id="tab-prescription" href="#prescription" class="nav-link" data-toggle="tab" role="tab" aria-controls="prescription" aria-selected="false">Prescription</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a id="tab-lab-records" href="#lab_records" class="nav-link" data-toggle="tab" role="tab" aria-controls="lab_records" aria-selected="false">Lab Records</a>
+                                    </li>
                                 </ul>
 
-                                <!-- Tab Panes -->
+                                <!-- Tab Panes - REARRANGED ORDER to match tabs -->
                                 <div class="tab-content">
-                                    <!-- Prescription Tab Pane -->
-                                    <div class="tab-pane fade show active" id="prescription" role="tabpanel" aria-labelledby="tab-prescription">
-                                        <div class="card mb-3">
-                                            <div class="card-header">
-                                                <h4 class="header-title">Add Prescription</h4>
-                                            </div>
-                                            <div class="card-body">
-                                                <form method="post">
-                                                    <div class="form-group">
-                                                        <textarea class="form-control" name="pres_ins" rows="4" placeholder="Enter Prescription notes here..." required></textarea>
-                                                    </div>
-                                                    <!-- Hidden patient details -->
-                                                    <input type="hidden" name="pat_number" value="<?php echo $_GET['pat_number']; ?>">
-                                                    <input type="hidden" name="pres_pat_name" value="<?php echo $patient_details->pat_fname . ' ' . $patient_details->pat_lname; ?>">
-                                                    <input type="hidden" name="pres_pat_age" value="<?php echo $patient_details->pat_age; ?>">
-                                                    <input type="hidden" name="pres_pat_addr" value="<?php echo $patient_details->pat_addr; ?>">
-                                                    <input type="hidden" name="pres_pat_type" value="Outpatient">
-                                                    <input type="hidden" name="pres_pat_ailment" value="">
-                                                    <button type="submit" name="add_patient_presc" class="btn btn-primary">Save Prescription</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <ul class="list-unstyled timeline-sm">
-                                            <?php
-                                            if(isset($_GET['pat_number'])){
-                                                $pat_number = $_GET['pat_number'];
-                                                $query = "SELECT * FROM his_prescriptions WHERE pat_number = ? ORDER BY pres_id DESC";
-                                                $stmt = $mysqli->prepare($query);
-                                                $stmt->bind_param("s", $pat_number);
-                                                $stmt->execute();
-                                                $result = $stmt->get_result();
-                                                while($row = $result->fetch_object()){
-                                                    $mysqlDateTime = $row->pres_date;
-                                            ?>
-                                            <li class="timeline-sm-item">
-                                                <span class="timeline-sm-date"><?php echo date("d-m-Y", strtotime($mysqlDateTime)); ?></span>
-                                                <div class="border p-2 mb-2 rounded">
-                                                    <?php echo nl2br(htmlspecialchars($row->pres_ins)); ?>
-                                                </div>
-                                            </li>
-                                            <?php } } ?>
-                                        </ul>
-                                    </div>
-
-                                    <!-- Vitals Tab Pane -->
-                                    <div class="tab-pane fade" id="vitals">
+                                    <!-- Vitals Tab Pane (Now First) -->
+                                    <div class="tab-pane fade show active" id="vitals" role="tabpanel" aria-labelledby="tab-vitals">
                                         <div class="card mb-3">
                                             <div class="card-header">
                                                 <h4 class="header-title">Record Vitals</h4>
@@ -355,8 +311,90 @@ $patient_details = $res->fetch_object();
                                         </ul>
                                     </div>
 
-                                    <!-- Lab Records Tab Pane -->
-                                    <div class="tab-pane fade" id="lab_records">
+                                    <!-- Doctor's Note Tab Pane (Now Second) -->
+                                    <div class="tab-pane fade" id="doctor_note" role="tabpanel" aria-labelledby="tab-doctor-note">
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <h4 class="header-title">Add New Note</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <form method="post">
+                                                    <div class="form-group">
+                                                        <textarea class="form-control" name="pat_notes" rows="4" placeholder="Enter clinical notes here..." required></textarea>
+                                                    </div>
+                                                    <input type="hidden" name="pat_id" value="<?php echo $_GET['pat_id']; ?>">
+                                                    <input type="hidden" name="pat_number" value="<?php echo $_GET['pat_number']; ?>">
+                                                    <button type="submit" name="add_note" class="btn btn-primary">Save Note</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <ul class="list-unstyled timeline-sm">
+                                            <?php
+                                            $pat_id = $_GET['pat_id'];
+                                            $ret = "SELECT * FROM his_notes WHERE pat_id = ? ORDER BY notes_id DESC";
+                                            $stmt = $mysqli->prepare($ret);
+                                            $stmt->bind_param('i', $pat_id);
+                                            $stmt->execute();
+                                            $res = $stmt->get_result();
+                                            while ($row = $res->fetch_object()) {
+                                                $mysqlDateTime = $row->notes_date;
+                                            ?>
+                                            <li class="timeline-sm-item">
+                                                <span class="timeline-sm-date"><?php echo date("d-m-Y", strtotime($mysqlDateTime)); ?></span>
+                                                <div class="border p-2 mb-2 rounded">
+                                                    <?php echo nl2br(htmlspecialchars($row->pat_notes)); ?>
+                                                </div>
+                                            </li>
+                                            <?php } ?>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Prescription Tab Pane (Now Third) -->
+                                    <div class="tab-pane fade" id="prescription" role="tabpanel" aria-labelledby="tab-prescription">
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <h4 class="header-title">Add Prescription</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <form method="post">
+                                                    <div class="form-group">
+                                                        <textarea class="form-control" name="pres_ins" rows="4" placeholder="Enter Prescription notes here..." required></textarea>
+                                                    </div>
+                                                    <!-- Hidden patient details -->
+                                                    <input type="hidden" name="pat_number" value="<?php echo $_GET['pat_number']; ?>">
+                                                    <input type="hidden" name="pres_pat_name" value="<?php echo $patient_details->pat_fname . ' ' . $patient_details->pat_lname; ?>">
+                                                    <input type="hidden" name="pres_pat_age" value="<?php echo $patient_details->pat_age; ?>">
+                                                    <input type="hidden" name="pres_pat_addr" value="<?php echo $patient_details->pat_addr; ?>">
+                                                    <input type="hidden" name="pres_pat_type" value="Outpatient">
+                                                    <input type="hidden" name="pres_pat_ailment" value="">
+                                                    <button type="submit" name="add_patient_presc" class="btn btn-primary">Save Prescription</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <ul class="list-unstyled timeline-sm">
+                                            <?php
+                                            if(isset($_GET['pat_number'])){
+                                                $pat_number = $_GET['pat_number'];
+                                                $query = "SELECT * FROM his_prescriptions WHERE pat_number = ? ORDER BY pres_id DESC";
+                                                $stmt = $mysqli->prepare($query);
+                                                $stmt->bind_param("s", $pat_number);
+                                                $stmt->execute();
+                                                $result = $stmt->get_result();
+                                                while($row = $result->fetch_object()){
+                                                    $mysqlDateTime = $row->pres_date;
+                                            ?>
+                                            <li class="timeline-sm-item">
+                                                <span class="timeline-sm-date"><?php echo date("d-m-Y", strtotime($mysqlDateTime)); ?></span>
+                                                <div class="border p-2 mb-2 rounded">
+                                                    <?php echo nl2br(htmlspecialchars($row->pres_ins)); ?>
+                                                </div>
+                                            </li>
+                                            <?php } } ?>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Lab Records Tab Pane (Now Fourth) -->
+                                    <div class="tab-pane fade" id="lab_records" role="tabpanel" aria-labelledby="tab-lab-records">
                                         <div class="card mb-3">
                                             <div class="card-header">
                                                 <h4 class="header-title">Add Laboratory Test</h4>
@@ -416,46 +454,6 @@ $patient_details = $res->fetch_object();
                                                 <?php } } ?>
                                             </ul>
                                         </div>   
-                                    </div>
-                                        
-
-
-                                    <!-- Doctor's Note Tab Pane -->
-                                    <div class="tab-pane fade" id="doctor_note">
-                                        <div class="card mb-3">
-                                            <div class="card-header">
-                                                <h4 class="header-title">Add New Note</h4>
-                                            </div>
-                                            <div class="card-body">
-                                                <form method="post">
-                                                    <div class="form-group">
-                                                        <textarea class="form-control" name="pat_notes" rows="4" placeholder="Enter clinical notes here..." required></textarea>
-                                                    </div>
-                                                    <input type="hidden" name="pat_id" value="<?php echo $_GET['pat_id']; ?>">
-                                                    <input type="hidden" name="pat_number" value="<?php echo $_GET['pat_number']; ?>">
-                                                    <button type="submit" name="add_note" class="btn btn-primary">Save Note</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <ul class="list-unstyled timeline-sm">
-                                            <?php
-                                            $pat_id = $_GET['pat_id'];
-                                            $ret = "SELECT * FROM his_notes WHERE pat_id = ? ORDER BY notes_id DESC";
-                                            $stmt = $mysqli->prepare($ret);
-                                            $stmt->bind_param('i', $pat_id);
-                                            $stmt->execute();
-                                            $res = $stmt->get_result();
-                                            while ($row = $res->fetch_object()) {
-                                                $mysqlDateTime = $row->notes_date;
-                                            ?>
-                                            <li class="timeline-sm-item">
-                                                <span class="timeline-sm-date"><?php echo date("d-m-Y", strtotime($mysqlDateTime)); ?></span>
-                                                <div class="border p-2 mb-2 rounded">
-                                                    <?php echo nl2br(htmlspecialchars($row->pat_notes)); ?>
-                                                </div>
-                                            </li>
-                                            <?php } ?>
-                                        </ul>
                                     </div>
                                 </div>
                                 <!-- End Tab Panes -->

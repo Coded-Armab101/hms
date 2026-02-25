@@ -3,7 +3,7 @@
   include('assets/inc/config.php');
   include('assets/inc/checklogin.php');
   check_login();
-  $aid=$_SESSION['ad_id'];
+  //$aid=$_SESSION['ad_id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,7 +50,7 @@
                                     <div class="page-title-box">
                                         <div class="page-title-right">
                                             <ol class="breadcrumb m-0">
-                                                <li class="breadcrumb-item"><a href="his_admin_dashboard.php">Dashboard</a></li>
+                                                <li class="breadcrumb-item"><a href="his_pharm_dashboard.php">Dashboard</a></li>
                                                 <li class="breadcrumb-item"><a href="javascript: void(0);">Vendors</a></li>
                                                 <li class="breadcrumb-item active">Manage Vendors</li>
                                             </ol>

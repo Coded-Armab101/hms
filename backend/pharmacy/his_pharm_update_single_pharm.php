@@ -3,7 +3,7 @@ session_start();
 include('assets/inc/config.php');
 include('assets/inc/checklogin.php');
 check_login();
-$aid = $_SESSION['ad_id'];
+//$aid = $_SESSION['ad_id'];
 
 // Update handler
 if (isset($_POST['update_pharmaceutical'])) {
@@ -34,7 +34,7 @@ if (isset($_POST['update_pharmaceutical'])) {
     }
     
     if ($stmt_update->affected_rows > 0) {
-         header("Location: his_admin_manage_pharm_cat.php");
+         header("Location: his_pharm_manage_pharm_cat.php");
          exit;
     } else {
          $err = "Please try again later";

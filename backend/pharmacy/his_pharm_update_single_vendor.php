@@ -17,7 +17,7 @@ if (isset($_POST['update_vendor'])) {
 
     if ($stmt) {
         $success = "Vendor Details Updated";
-        header("Location:his_admin_manage_vendor.php? success=".urlencode($success));
+        header("Location:his_pharm_manage_vendor.php? success=".urlencode($success));
     } else {
         $err = "Please Try Again Or Try Later";
     }

@@ -250,15 +250,16 @@
 
                         
                         <!--Recently Employed Employees-->
-                       <div class="row">
+                      <!--Recently Employed Employees-->
+<div class="row">
     <div class="col-xl-12">
         <div class="card shadow-lg rounded-lg border-0">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="  text-2xl font-bold">
+                    <h4 class="text-2xl font-bold">
                         <i class="mdi mdi-doctor mr-1 text-primary"></i> Hospital Medical Staff
                     </h4>
-                    <span class="font-semibold  text-black px-2 py-1">Top 10 Random Rotation</span>
+                    <span class="font-semibold text-black px-2 py-1">Top 10 Random Rotation</span>
                 </div>
 
                 <div class="table-responsive">
@@ -273,17 +274,20 @@
                         </thead>
                         <tbody>
                             <?php
-                                $ret="SELECT * FROM his_docs ORDER BY RAND() LIMIT 10 "; 
-                                $stmt= $mysqli->prepare($ret) ;
-                                $stmt->execute() ;
-                                $res=$stmt->get_result();
-                                while($row=$res->fetch_object()) {
+                                $ret = "SELECT doc_id, doc_fname, doc_lname, doc_number, doc_email, doc_dept, doc_dpic 
+                                        FROM his_docs ORDER BY RAND() LIMIT 10"; 
+                                $stmt = $mysqli->prepare($ret);
+                                $stmt->execute();
+                                $res = $stmt->get_result();
+                                while($row = $res->fetch_object()) {
                             ?>
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <div class="position-relative">
-                                            <img src="../doc/assets/images/users/<?php echo $row->doc_dpic;?>" alt="img" class="rounded-circle avatar-md img-thumbnail shadow-sm" />
+                                            <img src="../doc/assets/images/users/<?php echo !empty($row->doc_dpic) ? $row->doc_dpic : 'default.jpg'; ?>" 
+                                                 alt="img" class="rounded-circle avatar-md img-thumbnail shadow-sm" 
+                                                 onerror="this.src='assets/images/users/default.jpg'" />
                                             <span class="user-status online" style="height: 12px; width: 12px; background-color: #2ecc71; border: 2px solid #fff; border-radius: 50%; position: absolute; bottom: 2px; right: 2px;"></span>
                                         </div>
                                         <div class="ml-3">
@@ -304,17 +308,20 @@
                                 </td>
 
                                 <td class="text-center">
-                                    <a href="his_admin_view_single_employee.php?doc_id=<?php echo $row->doc_id;?>&doc_number=<?php echo $row->doc_number;?>" 
-                                       class="btn btn-sm btn-outline-primary rounded-lg  shadow-sm">
-                                        <i class="mdi mdi-eye-circle "></i> View
+                                    <a href="his_admin_view_single_employee.php?staff_id=<?php echo $row->doc_id;?>&staff_number=<?php echo $row->doc_number;?>&role=Doctor" 
+                                       class="btn btn-sm btn-outline-primary rounded-lg shadow-sm">
+                                        <i class="mdi mdi-eye-circle"></i> View
                                     </a>
                                 </td>
                             </tr>
                             <?php } ?>
                         </tbody>
                     </table>
-                </div> </div>
-        </div> </div> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
                 <!-- Footer Start -->
                 <?php include('assets/inc/footer.php');?>
